@@ -3,3 +3,10 @@
 ```bash
 dotnet new worker -n "MyService"
 ```
+
+## 运行
+
+```bash
+dotnet build
+dotnet run
+```
