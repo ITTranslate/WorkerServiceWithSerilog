@@ -42,7 +42,7 @@ namespace MyService
                         _logger.LogError(ex, "Global exception occurred. Will resume in a moment.");
                     }
 
-                    await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
+                    await Task.Delay(TimeSpan.FromSeconds(3), stoppingToken);
                 }
             }
             finally
@@ -61,17 +61,19 @@ namespace MyService
 
         private void GetOffWork(CancellationToken cancellationToken)
         {
-            Console.WriteLine("不行，我爱加班，我要再干 20 秒，ExecuteAsync 111 ");
+            Console.WriteLine("不行，我爱加班，我要再干 20 秒，Wait 1 ");
 
             Task.Delay(TimeSpan.FromSeconds(20)).Wait();
 
-            Console.WriteLine("不行，我爱加班，我要再干 10 秒，ExecuteAsync 222 ");
+            Console.WriteLine("不行，我爱加班，我要再干 10 秒，Wait 2 ");
 
             Task.Delay(TimeSpan.FromSeconds(10)).Wait();
 
-            Console.WriteLine("不行，我爱加班，我要再干 1 分钟，ExecuteAsync 333 ");
+            Console.WriteLine("不行，我爱加班，我要再干 1 分钟，Wait 3 ");
 
             Task.Delay(TimeSpan.FromMinutes(1)).Wait();
+
+            _logger.LogInformation("下班走人");
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
