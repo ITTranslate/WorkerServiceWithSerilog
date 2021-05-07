@@ -27,12 +27,17 @@ namespace MyService
 
             try
             {
+                // // test log.
+                // var position = new { Latitude = 25, Longitude = 134 };
+                // var elapsedMs = 34;
+                // Log.Information("Processed {@Position} in {Elapsed:000} ms.", position, elapsedMs);
+
                 var separator = new string('-', 30);
 
                 Log.Information($"{separator} Starting host {separator} ");
 
                 CreateHostBuilder(args).Build().Run();
-                
+
                 Log.Information($"{separator} Exit host {separator} ");
             }
             catch (Exception ex)
