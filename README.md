@@ -1,9 +1,9 @@
 # Worker Service 添加 Serilog 日志
 
-基于 WorkerServiceGracefullyShutdown 项目修改。
+基于 [WorkerServiceGracefullyShutdown](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown) 项目修改。
 
 ```bash
-dotnet new worker -n "MyService"
+git clone git@github.com:ITTranslate/WorkerServiceGracefullyShutdown.git
 ```
 
 ## 添加必要的依赖库
