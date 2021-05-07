@@ -21,15 +21,15 @@ namespace MyService
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            Console.WriteLine("上班了，又是精神抖擞的一天，StartAsync ");
+            _logger.LogInformation("上班了，又是精神抖擞的一天，output from StartAsync");
             return base.StartAsync(cancellationToken);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-
             try
             {
+                // 这里实现实际的业务逻辑
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     try
@@ -55,31 +55,28 @@ namespace MyService
 
         private async Task SomeMethodThatDoesTheWork(CancellationToken cancellationToken)
         {
-            Console.WriteLine("我爱工作，埋头苦干ing……");
+            _logger.LogInformation("我爱工作，埋头苦干ing……");
             await Task.CompletedTask;
         }
 
         private void GetOffWork(CancellationToken cancellationToken)
         {
-            Console.WriteLine("不行，我爱加班，我要再干 20 秒，Wait 1 ");
+            _logger.LogInformation("我爱工作，我要加班……");
+
+            _logger.LogInformation("不行，我爱加班，我要再干 20 秒，Wait 1 ");
 
             Task.Delay(TimeSpan.FromSeconds(20)).Wait();
 
-            Console.WriteLine("不行，我爱加班，我要再干 10 秒，Wait 2 ");
-
-            Task.Delay(TimeSpan.FromSeconds(10)).Wait();
-
-            Console.WriteLine("不行，我爱加班，我要再干 1 分钟，Wait 3 ");
+            _logger.LogInformation("不行，我爱加班，我要再干 1 分钟，Wait 2 ");
 
             Task.Delay(TimeSpan.FromMinutes(1)).Wait();
 
-            _logger.LogInformation("下班走人");
+            _logger.LogInformation("顶不住了，下班走人");
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            Console.WriteLine("下班时间到了，StopAsync ");
-            // Task.Delay(3000);
+            _logger.LogInformation("下班时间到了，output from StopAsync ");
             return base.StopAsync(cancellationToken);
         }
     }
