@@ -59,6 +59,9 @@ namespace MyService
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// 关闭前需要完成的工作
+        /// </summary>
         private void GetOffWork(CancellationToken cancellationToken)
         {
             _logger.LogInformation("我爱工作，我要加班……");
