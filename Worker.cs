@@ -10,6 +10,7 @@ namespace MyService
 {
     public class Worker : BackgroundService
     {
+        private bool _isStopping = false; //是否正在停止工作
         private readonly IHostApplicationLifetime _hostApplicationLifetime;
         private readonly ILogger<Worker> _logger;
 
@@ -35,6 +36,7 @@ namespace MyService
                     try
                     {
                         _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+
                         await SomeMethodThatDoesTheWork(stoppingToken);
                     }
                     catch (Exception ex)
@@ -42,7 +44,7 @@ namespace MyService
                         _logger.LogError(ex, "Global exception occurred. Will resume in a moment.");
                     }
 
-                    await Task.Delay(TimeSpan.FromSeconds(3), stoppingToken);
+                    await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
                 }
             }
             finally
@@ -55,7 +57,11 @@ namespace MyService
 
         private async Task SomeMethodThatDoesTheWork(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("我爱工作，埋头苦干ing……");
+            if (_isStopping)
+                _logger.LogInformation("假装还在埋头苦干ing…… 其实我去洗杯子了");
+            else
+                _logger.LogInformation("我爱工作，埋头苦干ing……");
+
             await Task.CompletedTask;
         }
 
@@ -64,22 +70,31 @@ namespace MyService
         /// </summary>
         private void GetOffWork(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("我爱工作，我要加班……");
+            _logger.LogInformation("啊，糟糕，有一个紧急 bug 需要下班前完成！！！");
 
-            _logger.LogInformation("不行，我爱加班，我要再干 20 秒，Wait 1 ");
+            _logger.LogInformation("啊啊啊，我爱加班，我要再干 20 秒，Wait 1 ");
 
             Task.Delay(TimeSpan.FromSeconds(20)).Wait();
 
-            _logger.LogInformation("不行，我爱加班，我要再干 1 分钟，Wait 2 ");
+            _logger.LogInformation("啊啊啊啊啊啊，我爱加班，我要再干 1 分钟，Wait 2 ");
 
             Task.Delay(TimeSpan.FromMinutes(1)).Wait();
 
-            _logger.LogInformation("顶不住了，下班走人");
+            _logger.LogInformation("啊哈哈哈哈哈，终于好了，下班走人！");
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("下班时间到了，output from StopAsync ");
+            _logger.LogInformation("太好了，下班时间到了，output from StopAsync at: {time}", DateTimeOffset.Now);
+
+            _isStopping = true;
+
+            _logger.LogInformation("去洗洗茶杯先……", DateTimeOffset.Now);
+            Task.Delay(60_000).Wait();
+            _logger.LogInformation("茶杯洗好了。", DateTimeOffset.Now);
+
+            _logger.LogInformation("下班喽 ^_^", DateTimeOffset.Now);
+
             return base.StopAsync(cancellationToken);
         }
     }
