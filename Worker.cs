@@ -49,9 +49,9 @@ namespace MyService
             }
             finally
             {
-                _logger.LogCritical("Exiting application...");
-                GetOffWork(stoppingToken);
-                _hostApplicationLifetime.StopApplication();
+                _logger.LogWarning("Exiting application...");
+                GetOffWork(stoppingToken); //关闭前需要完成的工作
+                _hostApplicationLifetime.StopApplication(); //手动调用 StopApplication
             }
         }
 
@@ -90,7 +90,7 @@ namespace MyService
             _isStopping = true;
 
             _logger.LogInformation("去洗洗茶杯先……", DateTimeOffset.Now);
-            Task.Delay(60_000).Wait();
+            Task.Delay(30_000).Wait();
             _logger.LogInformation("茶杯洗好了。", DateTimeOffset.Now);
 
             _logger.LogInformation("下班喽 ^_^", DateTimeOffset.Now);
