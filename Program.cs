@@ -20,6 +20,7 @@ namespace MyService
                 .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production"}.json", true)
                 .Build();
 
+            // 全局共享的日志记录器
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .Enrich.FromLogContext()
@@ -46,7 +47,7 @@ namespace MyService
             }
             finally
             {
-                Log.CloseAndFlush();
+                Log.CloseAndFlush(); // 释放资源
             }
         }
 
@@ -56,6 +57,6 @@ namespace MyService
                 {
                     services.AddHostedService<Worker>();
                 })
-                .UseSerilog(); //添加 Serilog
+                .UseSerilog(); //将 Serilog 设置为日志提供程序
     }
 }
