@@ -16,9 +16,16 @@ dotnet add package Serilog.Settings.Configuration
 dotnet add package Serilog.Extensions.Hosting
 dotnet add package Serilog.Sinks.Console
 dotnet add package Serilog.Sinks.RollingFile
+```
+
+```bash
 dotnet add package Serilog.Enrichers.Thread
 dotnet add package Serilog.Enrichers.Environment
 dotnet add package Serilog.Enrichers.Process
+```
+
+```bash
+dotnet add package Serilog.Sinks.SQLite
 ```
 
 ## 修改文件
