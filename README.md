@@ -1,5 +1,7 @@
 # Worker Service 添加 Serilog 日志
 
+[Read the related article](https://ittranslator.cn/dotnet/csharp/2021/05/31/worker-service-with-serilog.html).
+
 基于 [WorkerServiceGracefullyShutdown](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown) 项目修改。
 
 ```bash
