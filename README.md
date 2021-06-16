@@ -40,3 +40,8 @@ dotnet add package Serilog.Sinks.SQLite
 dotnet build
 dotnet run
 ```
+
+## 相关项目
+
+- [Worker Service 优雅退出](https://github.com/ITTranslate/WorkerServiceGracefullyShutdown)
+- [.NET Worker Service 作为 Windows 服务运行及优雅退出改进](https://github.com/ITTranslate/WorkerServiceAsWindowsService)
